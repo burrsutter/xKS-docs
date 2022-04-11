@@ -1,0 +1,16 @@
+# xKS Cluster Spin-Up Notes
+
+Azure Kubernetes Service
+
+Google Kubernetes Engine
+
+Amazon Kubernetes Service
+
+Digital Ocean Kubernetes Service
+
+Alibaba Container Kubernetes
+
+
+
+
+
