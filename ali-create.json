@@ -1,0 +1,11 @@
+{
+    "cluster_type": "Ask",
+    "name": "test-serverless-k8s",
+    "region_id": "cn-shanghai",
+    "zoneid": "cn-shanghai-h",
+    "nat_gateway": true,
+    "private_zone": true,
+    "tags": [
+        {"key": "env", "value": "test"}
+    ]
+}
