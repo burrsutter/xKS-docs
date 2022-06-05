@@ -8,7 +8,7 @@ az login
 
 az group create --name myAKSResourceGroup --location eastus
 
-az aks create --resource-group myAKSResourceGroup --name myAKSCluster --node-count 2
+az aks create --resource-group myAKSResourceGroup --name aks1 --node-count 2
 
 ----
 
@@ -23,8 +23,8 @@ image::./images/aks-1.png[][Azure Console]
 
 
 ----
-export KUBECONFIG=/Users/burr/xKS/.kubeconfig/ask1-config
-az aks get-credentials --resource-group myAKSResourceGroup --name myAKSCluster --file $KUBECONFIG
+export KUBECONFIG=/Users/burr/xKS/.kubeconfig/aks1-config
+az aks get-credentials --resource-group myAKSResourceGroup --name aks1 --file $KUBECONFIG
 ----
 
 ----

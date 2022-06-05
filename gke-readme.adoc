@@ -7,6 +7,12 @@ export KUBECONFIG=/Users/burr/xKS/.kubeconfig/gke1-config
 
 gcloud container clusters create gke1 --zone europe-west3-a --num-nodes 2
 
+#OR
+
+export KUBECONFIG=/Users/burr/xKS/.kubeconfig/frankfurt-config
+
+gcloud container clusters create frankfurt --zone europe-west3-a --num-nodes 2
+
 ----
 
 ----

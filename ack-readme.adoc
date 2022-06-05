@@ -1,5 +1,12 @@
 # ACK (Alibaba)
 
+Note: It takes several days to become a verified buyer on alibabacloud.com, requiring uploads of pictures of your credit card, passport/driver's license, and even credit card statement.
+
+https://www.alibabacloud.com/accountverification/kyc
+
+
+Alibaba Cloud Container Service for Kubernetes
+
 Download and configure CLI
 
 https://github.com/aliyun/aliyun-cli/releases
@@ -9,20 +16,50 @@ https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/configure-alibaba-
 https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/interactive-configuration
 
 
-https://www.alibabacloud.com/help/en/basics-for-beginners/latest/regions-and-zones
-
 http://ackworkshop.com/en/basics/installation/cli/
 
+----
+brew install jq
+----
+
+### GUI
+
+https://www.alibabacloud.com/help/en/container-service-for-kubernetes/latest/getting-started-with-ack-using-the-ack-console
+
+
+
+### CLI (not working)
 
 ----
-export KUBECONFIG=/Users/burr/xKS/.kubeconfig/ack1-config
+export KUBECONFIG=/Users/burr/xKS/.kubeconfig/ask1-config
 
 aliyun version
 3.0.115
 ----
 
+Get your Access Key Id
+Get your Access Key Secret
+
+https://www.alibabacloud.com/help/en/tablestore/latest/how-can-i-obtain-an-accesskey-pair
+
+Pick your region
+
+https://www.alibabacloud.com/help/en/basics-for-beginners/latest/regions-and-zones
+
 ----
-aliyun configure --mode AK --profile akProfile
+aliyun configure --profile akProfile
+
+Configuring profile 'akProfile' in 'AK' authenticate mode...
+Access Key Id [*********************d1G]:
+Access Key Secret [***************************dro]:
+Default Region Id [cn-shanghai]:
+Default Output Format [json]: json (Only support json)
+Default Language [zh|en] en:
+Saving profile[akProfile] ...Done.
+----
+
+----
+
 
 Configure Done!!!
 ..............888888888888888888888 ........=8888888888888888888D=..............
@@ -44,17 +81,43 @@ Configure Done!!!
 echo '
 {
     "cluster_type": "Ask",
-    "name": "ali1",
+    "name": "ask1",
     "region_id": "cn-shanghai",
     "zoneid": "cn-shanghai-h",
     "nat_gateway": true,
-    "private_zone": true,
+    "endpoint_public_access":false,
+    "private_zone": false,
     "tags": [
         {"key": "mytag", "value": "somevalue"}
     ]
 }
-' > create.json
+' > ask-create.json
 
-aliyun cs  POST /clusters --header "Content-Type=application/json" --body "$(cat create.json)"
+cluster_id=$(aliyun cs POST /clusters --header "Content-Type=application/json" --body "$(cat ask-create.json)" | jq -r '.cluster_id')
+
+echo $cluster_id
+----
 
 ----
+{
+	"cluster_id": "c85a1a4a26934440cbd0391b6a8d0c5ec",
+	"instanceId": "c85a1a4a26934440cbd0391b6a8d0c5ec",
+	"request_id": "FB86AD90-69A4-5D99-BC8B-C30EC157F3C0",
+	"task_id": "T-6272e49224a1c10468001876"
+}
+----
+
+----
+aliyun cs GET /clusters/cce4382e61aba432f84a219a9f91d3c46
+
+aliyun cs GET /clusters/cce4382e61aba432f84a219a9f91d3c46 | jq -r '.state'
+----
+
+----
+aliyun cs GET /k8s/cce4382e61aba432f84a219a9f91d3c46/user_config | jq -r '.config' > $KUBECONFIG
+----
+
+----
+aliyun cs DELETE /clusters/cce4382e61aba432f84a219a9f91d3c46
+----
+
