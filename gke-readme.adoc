@@ -52,11 +52,11 @@ sleep .3
 done
 
 
-gcloud container clusters delete frankfurt --zone europe-west3-a
+
 ----
 
 # Clean Up
 
 ----
-gcloud container clusters delete gke1 --zone europe-west3-a
+gcloud container clusters delete frankfurt --zone europe-west3-a
 ----
